@@ -63,7 +63,18 @@ export function useBookings(user) {
       .from('bookings')
       .insert(toRow(newBooking))
       .then(({ error }) => {
-        if (error) console.error('Failed to save booking:', error)
+        if (error) { console.error('Failed to save booking:', error); return }
+        supabase.functions.invoke('send-booking-email', {
+          body: {
+            email: user.email,
+            courtName: booking.courtName,
+            date: booking.date,
+            startTime: booking.startTime,
+            endTime: booking.endTime,
+          },
+        }).then(({ error: emailError }) => {
+          if (emailError) console.error('Failed to send email:', emailError)
+        })
       })
     return newBooking
   }, [user])
