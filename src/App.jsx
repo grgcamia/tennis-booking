@@ -4,6 +4,7 @@ import { useBookings } from './hooks/useBookings'
 import Navbar from './components/Navbar'
 import ProtectedRoute from './components/ProtectedRoute'
 import AuthPage from './pages/AuthPage'
+import ResetPasswordPage from './pages/ResetPasswordPage'
 import CourtsPage from './pages/CourtsPage'
 import CourtSchedulePage from './pages/CourtSchedulePage'
 import MyBookingsPage from './pages/MyBookingsPage'
@@ -29,6 +30,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<AuthPage signUp={signUp} signIn={signIn} />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route
           path="/*"
           element={
