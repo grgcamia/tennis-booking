@@ -2,14 +2,16 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { format, parseISO, isPast, startOfDay } from 'date-fns'
 
-export default function MyBookingsPage({ bookings, cancelBooking }) {
+export default function MyBookingsPage({ bookings, cancelBooking, user }) {
   const [confirmId, setConfirmId] = useState(null)
 
-  const sorted = [...bookings].sort((a, b) => {
-    const aKey = `${a.date}T${a.startTime}`
-    const bKey = `${b.date}T${b.startTime}`
-    return aKey.localeCompare(bKey)
-  })
+  const sorted = [...bookings]
+    .filter((b) => b.userId === user.id)
+    .sort((a, b) => {
+      const aKey = `${a.date}T${a.startTime}`
+      const bKey = `${b.date}T${b.startTime}`
+      return aKey.localeCompare(bKey)
+    })
 
   const upcoming = sorted.filter((b) => !isPast(parseISO(`${b.date}T${b.endTime}`)))
   const past = sorted.filter((b) => isPast(parseISO(`${b.date}T${b.endTime}`)))

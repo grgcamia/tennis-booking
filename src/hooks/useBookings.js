@@ -43,7 +43,6 @@ export function useBookings(user) {
     supabase
       .from('bookings')
       .select('*')
-      .eq('user_id', user.id)
       .then(({ data, error }) => {
         if (error) console.error('Failed to load bookings:', error)
         else setBookings((data ?? []).map(fromRow))

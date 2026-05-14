@@ -43,7 +43,7 @@ export default function App() {
                   />
                   <Route
                     path="/bookings"
-                    element={<MyBookingsPage bookings={bookings} cancelBooking={cancelBooking} />}
+                    element={<MyBookingsPage bookings={bookings} cancelBooking={cancelBooking} user={user} />}
                   />
                 </Routes>
               </div>
